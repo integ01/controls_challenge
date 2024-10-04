@@ -1,20 +1,24 @@
-<div align="center">
-<h1>comma Controls Challenge v2</h1>
+# MPC (Model Predictive Control) Steering using Identification of a Sparse System Model.
 
-<h3> Prize money: best score between August 5th and September 1st 2024 wins $500!</h3>
+This is a MPC controller implmentation adapted from a related problem. The main contribution is the method in which the control model was identified using the `pysindy' python package and its parameter optimization.
+
+`pysindy' provides tools for applying the sparse identification of nonlinear
+dynamics (SINDy) of dynamical sysytem using data traces taken from system runs. In our case I applied the identification to the rollout runs of the steering simulator to get an aproximated sparse symbolic model of the system. After, some parameter optimizations the model and controller performed well in the challenge ranking on the top 14 of the leader board (see details below).
 
 
-<h3>
-  <a href="https://comma.ai/leaderboard">Leaderboard</a>
-  <span> · </span>
-  <a href="https://comma.ai/jobs">comma.ai/jobs</a>
-  <span> · </span>
-  <a href="https://discord.comma.ai">Discord</a>
-  <span> · </span>
-  <a href="https://x.com/comma_ai">X</a>
-</h3>
+Credits are due to:
+  * The reference MPC implementation by Mark Misin (see also header in python code)
+  * `pysindy' python package : (https://pypi.org/project/pysindy/).
 
-</div>
+    
+## Usage
+Follow the task's original instructions - use the `mpcMainParams' controller.
+
+## Methodology
+I used the scripts in the `pysindy_optimization` directory to explore the model space for a symbolic model. Also are scripts used to search model parameters that would optimize the controller.
+
+# Comma Controls Challenge!
+![Car](./imgs/car.jpg)
 
 Machine learning models can drive cars, paint beautiful pictures and write passable rap. But they famously suck at doing low level controls. Your goal is to write a good controller. This repo contains a model that simulates the lateral movement of a car, given steering commands. The goal is to drive this "car" well for a given desired trajectory.
 
