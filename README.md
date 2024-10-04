@@ -10,12 +10,44 @@ Credits are due to:
   * The reference MPC implementation by Mark Misin (see also header in python code)
   * `pysindy' python package : (https://pypi.org/project/pysindy/).
 
-    
 ## Usage
 Follow the task's original instructions - use the `mpcMainParams' controller.
 
 ## Methodology
 I used the scripts in the `pysindy_optimization` directory to explore the model space for a symbolic model. Also are scripts used to search model parameters that would optimize the controller.
+
+## Comma Controls Challenge: Report Snippet
+
+<body>
+<h3 style="font-size: 30px; margin-top: 50px">Aggregate Costs (total rollouts: 5000)</h2>
+<h3 style="font-size: 30px;"><span style="background: #c0392b; color: #fff; padding: 10px">Test Controller: mpcMainParams</span> ⚔️ <span style="background: #2980b9; color: #fff; padding: 10px">Baseline Controller: pid</span></h3>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>controller</th>
+      <th>lataccel_cost</th>
+      <th>jerk_cost</th>
+      <th>total_cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>baseline</td>
+      <td>2.351</td>
+      <td>23.781</td>
+      <td>141.308</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>1.422</td>
+      <td>20.007</td>
+      <td>91.130</td>
+    </tr>
+  </tbody>
+</table>
+<h3 style="font-size: 20px; color: #27ae60"> ✅ Test Controller (mpcMainParams) passed Baseline Controller (pid)! ✅ </h3>
+</body>
+
 
 # Comma Controls Challenge!
 ![Car](./imgs/car.jpg)
