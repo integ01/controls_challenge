@@ -1,4 +1,4 @@
-# MPC (Model Predictive Control) Steering using Identification of a Sparse System Model.
+# MPC (Model Predictive Control) Steering using Sparse System Model Identification.
 
 This is a MPC controller implmentation adapted from a related problem. The main contribution is the method in which the control model was identified using the `pysindy' python package and its parameter optimization.
 
