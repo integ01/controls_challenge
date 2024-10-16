@@ -18,27 +18,31 @@ Follow the task's original instructions - use the `mpcMainParams` controller. Pl
 ## Methodology
 I used the scripts in the `pysindy_optimization` directory to explore the model space for a symbolic model. 
 <!--Also are scripts used to search model parameters that would optimize the controller.-->
-In particular I used the sindy SR3 method for sparse identification. The model identification consisted of 
-two basic steps:
-* Collecting simulations runs (rollouts) traces of the system  
-* Running the `pySindy` SR3 sparse identification with the rollout runs as inputs.
+Once the sparse system model is identified, I have integrated them into mpc controller model. So the controller design consisted of two main steps:
+* Model identification using the `pySindy` algorithms
+* Integration of the model into an `mpc-controller` and tuning its parameters.
+  
+### Pysindy Model Identification 
 
-### Collecting simulations rollouts - 
+I used the sindy's SR3 method for sparse identification. The model identification requires collecting simulations runs (rollouts) traces of the system . 
+
+#### Collecting simulations rollouts - 
 - The simulation runs are done using the challenge's physical model simulater. The script `tinyphysics_opt.py` was adapted to include an extra option to store rollouts as csv files. Note that the
-stored rollouts also include the control signals of any controller you might have selected. Actually. there is no importance to which controller, and I have found that mixing and batching rollouts from several controllers as input to the `sindy` algorithm provided the best model results.
+stored rollouts also include the control signals of any controller you might have selected. Actually, there is no importance to which controller is selected, empirically I have found that mixing and batching rollouts from several controllers provided the best model results with `sindy` algorithm.
 
-An example of the command to collect rollout using the pid controller:
+An example of the command to collect rollouts using the pid controller:
 
 ```
-python tinyphysics_opt.py --model_path ../models/tinyphysics.onnx --data_path ../data --num_segs 10 --controller pid --collect
+python tinyphysics_opt.py --model_path ../models/tinyphysics.onnx --data_path ../data --num_segs 100 --controller pid --collect
 ```
 The rollouts are saved in a new folder: `rollout_result/`
 
-### Running the `pySindy` script
+#### Running the `pySindy` script
 
-Please note that pySindy package needs to installed to the script: steer_modelSR3_sindy.py
-see instructions in `https://pypi.org/project/pysindy/`.
-Also note that you would need to update the script to define the rollout sets you wish to use. (see the train_data, test_data variables in the code).
+Please note that pySindy package needs to installed, see instructions in `https://pypi.org/project/pysindy/`.
+
+The script: `steer_modelSR3_sindy.py` includes the `pySindy` SR3 sparse identification using the rollout runs as inputs. Note that you would need to update the script definitions of the rollout sets to the ones you wish to use. (see the train_data, test_data variables in the code).
+
 
 Operate the script with the following command:
 ```
