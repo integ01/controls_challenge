@@ -12,6 +12,27 @@ LICENSE AGREEMENT
    See the GNU General Public License for more details.
    You should have received a copy of the GNU General Public License along with this program. 
    If not, see <https://www.gnu.org/licenses/>. 
+
+#############################################################################################
+# Revision Notes:
+#
+# v1 29-Sep-2024 - 
+# This is a MPC controller implmentation adapted for a steering challenge, see: 
+# 'https://github.com/commaai/controls_challenge'
+# The control model was identified using the `pysindy' a python package for 
+# sparse identification of nonlinear dynamics (SINDy)
+#
+# The mpc code is adapted from a related problem (credit 1). 
+#
+# In addition I have done parameter optimizations the symbolic model and controller 
+# performed well in the challenge ranking on the top 15 of the leader board 
+#
+# Credits:
+#
+#    (1) The reference MPC implementation by Mark Misin (see also header in python code)
+#    (2) `pysindy' python package : (https://pypi.org/project/pysindy/).
+#
+############################################################################################
 '''
 
 import numpy as np
