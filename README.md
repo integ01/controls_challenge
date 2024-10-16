@@ -1,20 +1,50 @@
 # MPC (Model Predictive Control) Steering using Sparse System Model Identification.
 
-This is a MPC controller implmentation adapted from a related problem. The main contribution is the method in which the control model was identified using the `pysindy' python package and its parameter optimization.
+This is a MPC controller implmentation for the steering control challenge. The control model was identified using the `pysindy' python package and by doing some parameter optimization on it.
 
-`pysindy' provides tools for applying the sparse identification of nonlinear
-dynamics (SINDy) of dynamical sysytem using data traces taken from system runs. In our case I applied the identification to the rollout runs of the steering simulator to get an aproximated sparse symbolic model of the system. After, some parameter optimizations the model and controller performed well in the challenge ranking on the top 14 of the leader board (see details below).
+`pysindy' package provides tools for applying the sparse identification of nonlinear
+dynamics (SINDy) of dynamical system using data traces taken from system runs. In our case I applied the identification to the rollout runs of the steering simulator to get an aproximated sparse symbolic model of the system. After, some parameter optimizations the model and controller performed well in the challenge ranking on the top 14 of the leader board (see details below).
 
+The mpc controller code was adapted from a related problem (credit 1). 
 
 Credits are due to:
-  * The reference MPC implementation by Mark Misin (see also header in python code)
-  * `pysindy' python package : (https://pypi.org/project/pysindy/).
+  (1) The reference MPC implementation by Mark Misin (see also header in python code)
+  (2) `pysindy' python package : (https://pypi.org/project/pysindy/).
 
 ## Usage
-Follow the task's original instructions - use the `mpcMainParams' controller.
+Follow the task's original instructions - use the `mpcMainParams` controller. Please note that the controller requires to install the python packages: `qpsolvers` and `cvxpy`. (see the requirements.txt file) 
+
 
 ## Methodology
-I used the scripts in the `pysindy_optimization` directory to explore the model space for a symbolic model. Also are scripts used to search model parameters that would optimize the controller.
+I used the scripts in the `pysindy_optimization` directory to explore the model space for a symbolic model. 
+<!--Also are scripts used to search model parameters that would optimize the controller.-->
+In particular I used the sindy SR3 method for sparse identification. The model identification consisted of 
+two basic steps:
+* Collecting simulations runs (rollouts) traces of the system  
+* Running the `pySindy` SR3 sparse identification with the rollout runs as inputs.
+
+### Collecting simulations rollouts - 
+- The simulation runs are done using the challenge's physical model simulater. The script `tinyphysics_opt.py` was adapted to include an extra option to store rollouts as csv files. Note that the
+stored rollouts also include the control signals of any controller you might have selected. Actually. there is no importance to which controller, and I have found that mixing and batching rollouts from several controllers as input to the `sindy` algorithm provided the best model results.
+
+An example of the command to collect rollout using the pid controller:
+
+```
+python tinyphysics_opt.py --model_path ../models/tinyphysics.onnx --data_path ../data --num_segs 10 --controller pid --collect
+```
+The rollouts are saved in a new folder: `rollout_result/`
+
+### Running the `pySindy` script
+
+Please note that pySindy package needs to installed to the script: steer_modelSR3_sindy.py
+see instructions in `https://pypi.org/project/pysindy/`.
+Also note that you would need to update the script to define the rollout sets you wish to use. (see the train_data, test_data variables in the code).
+
+Operate the script with the following command:
+```
+python steer_modelSR3_sindy.py
+```
+
 
 ## Comma Controls Challenge: Report Snippet
 
