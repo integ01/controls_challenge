@@ -1,9 +1,9 @@
 # MPC (Model Predictive Control) Steering using Sparse System Model Identification.
 
-This is a MPC controller implmentation for the steering control challenge. The control model was identified using the `pysindy' python package and by doing some parameter optimization on it.
+This is a MPC controller implementation for solving the steering control challenge (see full description below). The approach used for solving the challenge was to first identify the dynamic model of the system using the simulated data runs that are provided and analyzing it with the `pysindy' library package. Once the model parameters are available then designing and optimizing a MPC controller also using the simulator on the system.  
 
 `pysindy' package provides tools for applying the sparse identification of nonlinear
-dynamics (SINDy) of dynamical system using data traces taken from system runs. In our case I applied the identification to the rollout runs of the steering simulator to get an aproximated sparse symbolic model of the system. After, some parameter optimizations the model and controller performed well in the challenge ranking on the top 14 of the leader board (see details below).
+dynamics (SINDy) of dynamical system using data traces taken from system runs. In our case I applied the identification to the rollout runs of the steering simulator to get an aproximated sparse symbolic model of the system. After, some parameter optimizations the model and controller performed well in the challenge ranking (at the time of submission) on the top 14 of the leader board (see details below).
 
 The mpc controller code was adapted from a related problem (credit 1). 
 
